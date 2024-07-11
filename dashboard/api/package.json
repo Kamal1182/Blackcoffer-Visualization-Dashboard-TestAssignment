@@ -21,5 +21,19 @@
   "bugs": {
     "url": "https://github.com/Kamal1182/Blackcoffer-Visualization-Dashboard-TestAssignment/issues"
   },
-  "homepage": "https://github.com/Kamal1182/Blackcoffer-Visualization-Dashboard-TestAssignment#readme"
+  "homepage": "https://github.com/Kamal1182/Blackcoffer-Visualization-Dashboard-TestAssignment#readme",
+  "devDependencies": {
+    "nodemon": ""
+  },
+  "dependencies": {
+    "bcrypt": "",
+    "cors": "",
+    "dotenv": "",
+    "express": "",
+    "express-fileupload": "",
+    "express-jwt": "",
+    "express-validator": "",
+    "mongodb": "",
+    "sanitize-html": ""
+  }
 }
