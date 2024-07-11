@@ -25,13 +25,13 @@
   },
   "homepage": "https://github.com/Kamal1182/Blackcoffer-Visualization-Dashboard-TestAssignment#readme",
   "devDependencies": {
-    "nodemon": ""
+    "nodemon": "^3.1.4"
   },
   "dependencies": {
     "bcrypt": "",
     "cors": "",
     "dotenv": "^16.4.5",
-    "express": "",
+    "express": "^4.19.2",
     "express-fileupload": "",
     "express-jwt": "",
     "express-validator": "",
