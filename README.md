@@ -5,8 +5,8 @@ This project involves creating a data visualization dashboard using the provided
 
 ## Project Objectives
 - Create a MongoDB database from the provided JSON data (`jsondata.json`).
-- Develop a data visualization dashboard using the MEAN stack (MongoDB, Express.js, Angular, Node.js) or MERN stack (MongoDB, Express.js, React, Node.js) or React Native.
-- Utilize visualization libraries such as D3.js (recommended), Chart.js, FusionCharts, Plotly.js, Google Charts, Highcharts, etc.
+- Develop a data visualization dashboard using the MEAN stack (MongoDB, Express.js, Angular, Node.js).
+- Utilize visualization libraries D3.js is used.
 - Implement interactive graphs, charts, and visuals to generate insights from the data.
 - Incorporate various filters to enhance the user experience.
 
@@ -41,21 +41,11 @@ For inspiration, you can refer to the following examples:
 - [Apex Chart](https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/demo-2/charts/apex-chart)
 - [Chart.js Examples](https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/demo-2/charts/chartjs)
 
-## Submission
-- Complete the assignment within 8 days.
-- Upload your solution to Google Drive.
-- Fill out the Google form with your assignment solution link: [Submission Form](https://forms.gle/YBV6Xka5WsrPwYsB8)
-
-## Communication
-- For any questions, text message on Skype ID: `mani.vidyarthy`.
-
-## Getting Started
-
 ### Prerequisites
 - Node.js
 - MongoDB
-- Angular/React/React Native
-- D3.js/Chart.js/FusionCharts/Plotly.js/Google Charts/Highcharts
+- Angular
+- D3.js
 
 ### Installation
 1. Clone the repository:
