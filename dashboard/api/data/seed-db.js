@@ -12,7 +12,7 @@ async function seedCollection(collectionName, initialRecords) {
 
   // const client = new MongoClient(process.env.DB_CONN, { useNewUrlParser: true, useUnifiedTopology: true });
   const uri = 'mongodb+srv://blackcoffer_admin:BlackCoffer@cluster0.qfnocza.mongodb.net/?retryWrites=true&w=majority';
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(uri);
 
   try {
     await client.connect();
