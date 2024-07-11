@@ -1,0 +1,25 @@
+{
+  "name": "blackcoffer-dashboard",
+  "version": "1.0.0",
+  "description": "MEAN stack dashboard web application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kamal1182/Blackcoffer-Visualization-Dashboard-TestAssignment.git"
+  },
+  "keywords": [
+    "MEAN",
+    "stack",
+    "dashboard",
+    "D3.js"
+  ],
+  "author": "Mohamed Aboelmaged",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kamal1182/Blackcoffer-Visualization-Dashboard-TestAssignment/issues"
+  },
+  "homepage": "https://github.com/Kamal1182/Blackcoffer-Visualization-Dashboard-TestAssignment#readme"
+}
