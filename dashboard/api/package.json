@@ -35,7 +35,7 @@
     "express-fileupload": "",
     "express-jwt": "",
     "express-validator": "",
-    "mongodb": "",
+    "mongodb": "^6.8.0",
     "sanitize-html": ""
   }
 }
