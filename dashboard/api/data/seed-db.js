@@ -1,18 +1,17 @@
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
 
 const { MongoClient } = require('mongodb');
 const bcrypt = require('bcrypt');
 
 const data = require('./jsondata.json');
-require('dotenv').config();
 
 
 
 async function seedCollection(collectionName, initialRecords) {
 
-  // const client = new MongoClient(process.env.DB_CONN, { useNewUrlParser: true, useUnifiedTopology: true });
-  const uri = 'mongodb+srv://blackcoffer_admin:BlackCoffer@cluster0.qfnocza.mongodb.net/?retryWrites=true&w=majority';
-  const client = new MongoClient(uri);
+  const client = new MongoClient(process.env.DB_CONN);
+  // const uri = 'mongodb+srv://blackcoffer_admin:BlackCoffer@cluster0.qfnocza.mongodb.net/?retryWrites=true&w=majority';
+  // const client = new MongoClient(uri);
 
   try {
     await client.connect();
