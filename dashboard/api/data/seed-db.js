@@ -3,9 +3,7 @@ require('dotenv').config();
 const MongoClient = require('mongodb').MongoClient;
 const bcrypt = require('bcrypt');
 
-const users = require('./jsondata.json');
-const products = require('./products.json');
-const contacts = require('./contacts.json');
+const data = require('./jsondata.json');
 require('dotenv').config();
 
 
@@ -13,7 +11,7 @@ require('dotenv').config();
 function seedCollection(collectionName, initialRecords) {
 
   MongoClient.connect(process.env.DB_CONN, (err, client) => {
-    var db = client.db('myStore');
+    var db = client.db('blackcoffer_dashboard');
     
     console.log('connected to mongodb...');
 
@@ -40,6 +38,4 @@ function seedCollection(collectionName, initialRecords) {
 }
 
 
-seedCollection('users', users);
-seedCollection('products', products);
-seedCollection('contacts', contacts);
+seedCollection('dashboard_data', data);
