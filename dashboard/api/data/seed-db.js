@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
 const bcrypt = require('bcrypt');
 
 const data = require('./jsondata.json');
@@ -8,33 +8,38 @@ require('dotenv').config();
 
 
 
-function seedCollection(collectionName, initialRecords) {
+async function seedCollection(collectionName, initialRecords) {
 
-  MongoClient.connect(process.env.DB_CONN, (err, client) => {
-    var db = client.db('blackcoffer_dashboard');
+  // const client = new MongoClient(process.env.DB_CONN, { useNewUrlParser: true, useUnifiedTopology: true });
+  const uri = 'mongodb+srv://blackcoffer_admin:BlackCoffer@cluster0.qfnocza.mongodb.net/?retryWrites=true&w=majority';
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
     
-    console.log('connected to mongodb...');
+    console.log('Connected to MongoDB successfully');
+    // Perform database operations here
 
-    const collection = db.collection(collectionName);
+    let result = await client.db("blackcoffer_dashboard").collection(collectionName).deleteMany({});
 
-    collection.remove();  
-    
-    initialRecords.forEach((item) => {
-      if (item.password) {
-        item.password = bcrypt.hashSync(item.password, parseInt(process.env.hashSalt))
-      }
-    });
+    console.log(`${result.deletedCount} document(s) was/were deleted.`);
 
     console.log('inserting records...');
 
-    collection.insertMany(initialRecords, (err, result) => {
-      console.log(`${result.insertedCount} records inserted.`);
-      console.log('closing connection...');
-      client.close();
-      console.log('done.');
-    });
+    result = await client.db("blackcoffer_dashboard")
+                               .collection(collectionName)
+                               .insertMany(initialRecords);
 
-  });
+    
+    console.log(`${result.insertedCount} records inserted.`);
+    console.log('closing connection...');
+    await client.close();
+    console.log('done.');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  } finally {
+    await client.close();
+  }
 }
 
 

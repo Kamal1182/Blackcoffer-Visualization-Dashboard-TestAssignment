@@ -30,7 +30,7 @@
   "dependencies": {
     "bcrypt": "",
     "cors": "",
-    "dotenv": "",
+    "dotenv": "^16.4.5",
     "express": "",
     "express-fileupload": "",
     "express-jwt": "",
