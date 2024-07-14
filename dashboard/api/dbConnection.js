@@ -14,7 +14,7 @@ module.exports = {
 
         await client.connect();
 
-        _db = await client.db("blackcoffer_dashboard");
+        _db = client.db("blackcoffer_dashboard");
 
         console.log('Connected to MongoDB successfully');
         
@@ -22,7 +22,7 @@ module.exports = {
         console.error('Error connecting to MongoDB:', error);
       }
 
-      
+      return _db;
 
       // MongoClient.connect(process.env.DB_CONN, { useUnifiedTopology: true },  (err, cluster) => {
       //   if(err) {
@@ -36,7 +36,7 @@ module.exports = {
     },
 
     getDb : function () { 
-      return _db;  
+      return _db;
     }
 
 };
