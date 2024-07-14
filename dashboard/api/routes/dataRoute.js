@@ -7,7 +7,7 @@ module.exports = () => {
 
     const dataCollection = getDBInstance().collection("dashboard_data");
     
-    const result = await dataCollection.findOne({});
+    const result = await dataCollection.find({}).toArray();
 
     return res.status(200).json(result);
 
