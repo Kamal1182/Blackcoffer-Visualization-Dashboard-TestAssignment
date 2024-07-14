@@ -1,20 +1,17 @@
 const express = require('express');
 const router  = express.Router();
-const fs = require('fs');
-const ObjectId = require('mongodb').ObjectID;
-const jwt     = require('jsonwebtoken');
-const sanitizeHtml = require('sanitize-html');
-
-//const db      = require('../dbConnection');
-//database      = db.getDb();
+const { connectToServer, getDBInstance } = require('../dbConnection');
 
 module.exports = () => {
-  router.get('/', (req, res) => {
-      const productsCollection = database.collection('products');
-      productsCollection.find({}).toArray((err, docs) => {
-        return res.status(200).json(docs);
-      });
-    });
+  router.get('/', async (req, res) => {
+
+    const dataCollection = getDBInstance().collection("dashboard_data");
+    
+    const result = await dataCollection.findOne({});
+
+    return res.status(200).json(result);
+
+  });
 
   return router;
 };

@@ -1,42 +1,30 @@
 const { MongoClient } = require('mongodb');
-const ObjectID = require('mongodb').ObjectID
+
 require('dotenv').config();
 
-var _db;
+let mongoClientInstance = null;
+let dbInstance = null;
 
-module.exports = {
+  async function connectToServer() {
 
-    connectToServer : async function ( callback ) {
-
-      const client = new MongoClient(process.env.CLUSTER_CONN);
-
-      try {
-
-        await client.connect();
-
-        _db = client.db("blackcoffer_dashboard");
-
-        console.log('Connected to MongoDB successfully');
-        
-      } catch {
-        console.error('Error connecting to MongoDB:', error);
-      }
-
-      return _db;
-
-      // MongoClient.connect(process.env.DB_CONN, { useUnifiedTopology: true },  (err, cluster) => {
-      //   if(err) {
-      //     console.log('Database error: ' + err);
-      //   } else {
-      //       _db = cluster.db('myStore');
-      //       console.log('Successful database connection');
-      //       return callback( err );
-      //   }
-      // })
-    },
-
-    getDb : function () { 
-      return _db;
+    if (!mongoClientInstance) {
+      mongoClientInstance = await MongoClient.connect(process.env.CLUSTER_CONN);
+      dbInstance = await mongoClientInstance.db(process.env.DB_NAME);
+      // const result = await dbInstance.collection("dashboard_data").findOne({country: "United States of America"});
+      // console.log(result);
+      console.log("Database Connected Successfully")
     }
 
-};
+    // returning a reference to the database
+    return dbInstance;
+
+  }
+
+  function getDBInstance() {
+    if (!dbInstance) {
+        throw new Error("Database not connected");
+    }
+    return dbInstance;
+  }
+
+  module.exports = { connectToServer, getDBInstance };

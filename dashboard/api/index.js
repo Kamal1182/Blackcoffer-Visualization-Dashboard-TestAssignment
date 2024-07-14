@@ -1,4 +1,4 @@
-const db = require('./dbConnection');
+const { connectToServer } = require('./dbConnection');
 const port = process.env.PORT || 3000;
 const createExpressApp = require('./create-express-app');
 const MongoClient = require('mongodb').MongoClient;
@@ -9,7 +9,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const apiRouter = require('./routes/api-router');
-const fileUpload = require('express-fileupload');
 const cors = require("cors");
 const corsOptions ={
   origin:'*', 
@@ -31,12 +30,6 @@ app.get('*', (req, res) => {
   return res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
+connectToServer();
+
 app.listen(port, () => { console.log(`listening on http://localhost:${port}`) })
-
-database = db.connectToServer( ( err ) => {
-    if (err) console.log(err);
-    
-    database = db.getDb();
-
-  }  
-);
