@@ -8,7 +8,7 @@ module.exports = {
 
     connectToServer : async function ( callback ) {
 
-      const client = new MongoClient(process.env.DB_CONN);
+      const client = new MongoClient(process.env.CLUSTER_CONN);
 
       try {
 
