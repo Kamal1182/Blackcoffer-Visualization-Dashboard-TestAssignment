@@ -4,14 +4,14 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "almarket-api",
+        "label": "api",
         "type": "shell",
-        "command": "cd almarket/almarket-api; npm run watch:server"
+        "command": "cd dashboard/api; npm run watch:server"
       },
       {
-        "label": "almarket-front",
+        "label": "dashboard-front",
         "type": "shell",
-        "command": "cd almarket/almarket-front; npm run start",
+        "command": "cd dashboard/dashboard-front; npm run start",
       }
     ]
   }
