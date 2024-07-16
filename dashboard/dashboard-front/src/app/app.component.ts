@@ -23,6 +23,6 @@ export class AppComponent {
             .subscribe(data => {
               this.data = data;
             })
-    console.log(this.data);        
+            
   }
 }
