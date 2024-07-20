@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ApiService } from '../app/shared/services/api/api.service';
 import { DataItem } from './shared/model/data.model';
+import * as d3 from 'd3';
 
 @Component({
   selector: 'app-root',
@@ -17,49 +18,75 @@ export class AppComponent {
 
   data: DataItem[] = [];
 
+  private data1 = [
+    {"Framework": "Vue", "Stars": "166443", "Released": "2014"},
+    {"Framework": "React", "Stars": "150793", "Released": "2013"},
+    {"Framework": "Angular", "Stars": "62342", "Released": "2016"},
+    {"Framework": "Backbone", "Stars": "27647", "Released": "2010"},
+    {"Framework": "Ember", "Stars": "21471", "Released": "2011"},
+  ];
+  private svg: any;
+  private margin = 50;
+  private width = 375 - (this.margin * 2);
+  private height = 200 - (this.margin * 2);
+
   constructor(public api: ApiService) {}
 
   ngOnInit(): void {
     this.api.get('data')
             .subscribe((data: DataItem[]) => {
               this.data = data;
-              this.createChart();
+              this.createSvg();
+              this.drawBars(this.data1);
             })
   }
 
   private createChart(): void {
-    // const element = document.getElementById('chart');
-    // if (!element) {
-    //   console.error('Chart element not found');
-    //   return;
-    // }
-    // const width = element.clientWidth;
-    // const height = element.clientHeight;
-
-    // const svg = d3.select(element)
-    //               .append('svg')
-    //               .attr('width', width)
-    //               .attr('height', height);
-
-    // // Example: Create a bar chart
-    // const x = d3.scaleBand<DataItem>()
-    //             .range([0, width])
-    //             .padding(0.1);
-
-    // const y = d3.scaleLinear()
-    //             .range([height, 0]);
-
-    // x.domain(this.data.map(d => d.label)); // Adjust as per your data structure
-    // y.domain([0, d3.max(this.data, d => d.value)]); // Adjust as per your data structure
-
-    // svg.selectAll('.bar')
-    //     .data(this.data)
-    //     .enter()
-    //     .append('rect')
-    //     .attr('class', 'bar')
-    //     .attr('x', d => x(d.label))
-    //     .attr('width', x.bandwidth())a
-    //     .attr('y', d => y(d.value))
-    //     .attr('height', d => height - y(d.value));
+    
   }
+
+  private createSvg(): void {
+    this.svg = d3.select("figure#bar")
+    .append("svg")
+    .attr("width", this.width + (this.margin * 2))
+    .attr("height", this.height + (this.margin * 2))
+    .append("g")
+    .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
+}
+
+private drawBars(data: any[]): void {
+  // Create the X-axis band scale
+  const x = d3.scaleBand()
+  .range([0, this.width])
+  .domain(data.map(d => d.Framework))
+  .padding(0.2);
+
+  // Draw the X-axis on the DOM
+  this.svg.append("g")
+  .attr("transform", "translate(0," + this.height + ")")
+  .call(d3.axisBottom(x))
+  .selectAll("text")
+  .attr("transform", "translate(-10,0)rotate(-45)")
+  .style("text-anchor", "end");
+
+  // Create the Y-axis band scale
+  const y = d3.scaleLinear()
+  .domain([0, 200000])
+  .range([this.height, 0]);
+
+  // Draw the Y-axis on the DOM
+  this.svg.append("g")
+  .call(d3.axisLeft(y));
+
+  // Create and fill the bars
+  this.svg.selectAll("bars")
+  .data(data)
+  .enter()
+  .append("rect")
+  .attr("x", (d: any) => x(d.Framework))
+  .attr("y", (d: any) => y(d.Stars))
+  .attr("width", x.bandwidth())
+  .attr("height", (d: any) => this.height - y(d.Stars))
+  .attr("fill", "#d04a35");
+}
 }
