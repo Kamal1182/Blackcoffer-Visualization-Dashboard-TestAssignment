@@ -19,16 +19,19 @@ export class AppComponent {
   data: DataItem[] = [];
 
   private data1 = [
-    {"Framework": "Vue", "Stars": "166443", "Released": "2014"},
-    {"Framework": "React", "Stars": "150793", "Released": "2013"},
-    {"Framework": "Angular", "Stars": "62342", "Released": "2016"},
-    {"Framework": "Backbone", "Stars": "27647", "Released": "2010"},
-    {"Framework": "Ember", "Stars": "21471", "Released": "2011"},
+    {"Country": "United Stated", "Publicatios": "112"},
+    {"Country": "United Kingdom", "Publicatios": "100"},
+    {"Country": "Germany", "Publicatios": "90"},
+    {"Country": "France", "Publicatios": "80"},
+    {"Country": "China", "Publicatios": "10"},
   ];
+
+  private countryPublications: {country: string, publications: number}[] = [];
+
   private svg: any;
   private margin = 50;
-  private width = 375 - (this.margin * 2);
-  private height = 200 - (this.margin * 2);
+  private width = 750 - (this.margin * 2);
+  private height = 400 - (this.margin * 2);
 
   constructor(public api: ApiService) {}
 
@@ -36,13 +39,17 @@ export class AppComponent {
     this.api.get('data')
             .subscribe((data: DataItem[]) => {
               this.data = data;
+              // this.data.forEach(d => {
+              //   if (this.countryPublications.hasOwnProperty(d.country)) {
+              //     this.countryPublications[d.country];
+              //   } else {
+              //     this.countryPublications.country = d.country;
+              //     this.countryPublications.
+              //   }
+              // });
               this.createSvg();
               this.drawBars(this.data1);
             })
-  }
-
-  private createChart(): void {
-    
   }
 
   private createSvg(): void {
@@ -58,7 +65,7 @@ private drawBars(data: any[]): void {
   // Create the X-axis band scale
   const x = d3.scaleBand()
   .range([0, this.width])
-  .domain(data.map(d => d.Framework))
+  .domain(data.map(d => d.Country))
   .padding(0.2);
 
   // Draw the X-axis on the DOM
@@ -71,7 +78,7 @@ private drawBars(data: any[]): void {
 
   // Create the Y-axis band scale
   const y = d3.scaleLinear()
-  .domain([0, 200000])
+  .domain([0, 200])
   .range([this.height, 0]);
 
   // Draw the Y-axis on the DOM
@@ -83,10 +90,10 @@ private drawBars(data: any[]): void {
   .data(data)
   .enter()
   .append("rect")
-  .attr("x", (d: any) => x(d.Framework))
-  .attr("y", (d: any) => y(d.Stars))
+  .attr("x", (d: any) => x(d.Country))
+  .attr("y", (d: any) => y(d.Publicatios))
   .attr("width", x.bandwidth())
-  .attr("height", (d: any) => this.height - y(d.Stars))
+  .attr("height", (d: any) => this.height - y(d.Publicatios))
   .attr("fill", "#d04a35");
 }
 }
