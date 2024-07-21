@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import * as d3 from 'd3';
 import { ApiService } from '../app/shared/services/api/api.service';
 import { DataItem } from './shared/model/data.model';
-import * as d3 from 'd3';
 
 @Component({
   selector: 'app-root',
@@ -18,14 +18,6 @@ export class AppComponent {
 
   data: DataItem[] = [];
 
-  private data1 = [
-    {"Country": "United Stated", "Publicatios": "112"},
-    {"Country": "United Kingdom", "Publicatios": "100"},
-    {"Country": "Germany", "Publicatios": "90"},
-    {"Country": "France", "Publicatios": "80"},
-    {"Country": "China", "Publicatios": "10"},
-  ];
-
   private countryPublications: {country: string, publications: number}[] = [];
 
   private svg: any;
@@ -39,16 +31,25 @@ export class AppComponent {
     this.api.get('data')
             .subscribe((data: DataItem[]) => {
               this.data = data;
-              // this.data.forEach(d => {
-              //   if (this.countryPublications.hasOwnProperty(d.country)) {
-              //     this.countryPublications[d.country];
-              //   } else {
-              //     this.countryPublications.country = d.country;
-              //     this.countryPublications.
-              //   }
-              // });
+              
+              // prepare (country / publications) chart data
+              this.data.forEach(item => {
+                  const i = this.countryPublications.findIndex(e => e.country === item.country)
+                  if (i > -1) {
+                    this.countryPublications[i].publications++;
+                  } else {
+                    this.countryPublications.push({country: item.country, publications: 1});
+                  }
+                }
+              )
+              console.log(this.countryPublications);
+
+              // prepare (country / sector) chart data
+
+              
+
               this.createSvg();
-              this.drawBars(this.data1);
+              this.drawBars(this.countryPublications);
             })
   }
 
@@ -65,7 +66,7 @@ private drawBars(data: any[]): void {
   // Create the X-axis band scale
   const x = d3.scaleBand()
   .range([0, this.width])
-  .domain(data.map(d => d.Country))
+  .domain(data.map(d => d.country))
   .padding(0.2);
 
   // Draw the X-axis on the DOM
@@ -78,7 +79,7 @@ private drawBars(data: any[]): void {
 
   // Create the Y-axis band scale
   const y = d3.scaleLinear()
-  .domain([0, 200])
+  .domain([0, 700])
   .range([this.height, 0]);
 
   // Draw the Y-axis on the DOM
@@ -90,10 +91,13 @@ private drawBars(data: any[]): void {
   .data(data)
   .enter()
   .append("rect")
-  .attr("x", (d: any) => x(d.Country))
-  .attr("y", (d: any) => y(d.Publicatios))
+  .attr("x", (d: any) => x(d.country))
+  .attr("y", (d: any) => y(d.publications))
   .attr("width", x.bandwidth())
-  .attr("height", (d: any) => this.height - y(d.Publicatios))
+  .attr("height", (d: any) => this.height - y(d.publications))
   .attr("fill", "#d04a35");
 }
+
+
+
 }
