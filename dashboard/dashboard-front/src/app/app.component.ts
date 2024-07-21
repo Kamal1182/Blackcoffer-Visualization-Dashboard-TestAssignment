@@ -46,7 +46,7 @@ export class AppComponent {
 
               // prepare (country / sector) chart data
 
-              
+
 
               this.createSvg();
               this.drawBars(this.countryPublications);
@@ -78,8 +78,10 @@ private drawBars(data: any[]): void {
   .style("text-anchor", "end");
 
   // Create the Y-axis band scale
+  const yMax = Math.max.apply(Math, this.countryPublications.map(function(e) { return e.publications; })) * 1.1
+
   const y = d3.scaleLinear()
-  .domain([0, 700])
+  .domain([0, yMax])
   .range([this.height, 0]);
 
   // Draw the Y-axis on the DOM
