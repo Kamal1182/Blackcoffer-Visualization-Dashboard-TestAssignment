@@ -227,7 +227,9 @@ w<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
       </svg>
       <h1>Hello, {{ title }}</h1>
       <p>Congratulations! Your app is running. 🎉</p>
-      <app-country-publications-chart [countryPublications] = "countryPublications"></app-country-publications-chart>
+      <div *ngIf="dataGotFromAPI">
+        <app-country-publications-chart [data] = "data"></app-country-publications-chart>
+      </div>
       <figure id="bar"></figure>
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
