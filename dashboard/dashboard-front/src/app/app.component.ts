@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import * as d3 from 'd3';
 import { ApiService } from '../app/shared/services/api/api.service';
@@ -19,7 +19,7 @@ export class AppComponent {
 
   data: DataItem[] = [];
 
-  @Input() countryPublications: {country: string, publications: number}[] = [];
+  countryPublications: {country: string, publications: number}[] = [];
 
   private svg: any;
   private margin = 50;
@@ -45,7 +45,6 @@ export class AppComponent {
               )
               const unKnownCountryIndex = this.countryPublications.findIndex(e => e.country == "");
               this.countryPublications[unKnownCountryIndex].country = "unknown";
-              console.log(this.countryPublications);
 
               // prepare (country / sector) chart data
 

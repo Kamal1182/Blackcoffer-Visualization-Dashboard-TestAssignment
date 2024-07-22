@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-country-publications-chart',
@@ -8,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './country-publications-chart.component.css'
 })
 export class CountryPublicationsChartComponent {
+
+  @Input() countryPublications: {country: string, publications: number}[] = [];
+
+  ngOnInit(): void {
+    console.log(this.countryPublications);
+  } 
 
 }
