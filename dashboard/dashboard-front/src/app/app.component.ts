@@ -6,11 +6,18 @@ import { CountryPublicationsChartComponent } from './country-publications-chart/
 import { RegionPublicationsChartComponent } from './region-publications-chart/region-publications-chart.component';
 import { SectorPublicationsChartComponent } from './sector-publications-chart/sector-publications-chart.component';
 import { DataItem } from './shared/model/data.model';
+import { TopicPublicationsChartComponent } from './topic-publications-chart/topic-publications-chart.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, CountryPublicationsChartComponent, SectorPublicationsChartComponent, RegionPublicationsChartComponent],
+  imports: [CommonModule,
+             RouterOutlet,
+             CountryPublicationsChartComponent,
+             SectorPublicationsChartComponent,
+             RegionPublicationsChartComponent,
+             TopicPublicationsChartComponent
+            ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
