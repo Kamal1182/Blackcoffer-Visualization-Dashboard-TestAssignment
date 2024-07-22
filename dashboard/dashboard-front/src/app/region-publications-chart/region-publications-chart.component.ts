@@ -3,17 +3,16 @@ import * as d3 from 'd3';
 import { DataItem } from '../shared/model/data.model';
 
 @Component({
-  selector: 'app-country-publications-chart',
+  selector: 'app-region-publications-chart',
   standalone: true,
   imports: [],
-  templateUrl: './country-publications-chart.component.html',
-  styleUrl: './country-publications-chart.component.css'
+  templateUrl: './region-publications-chart.component.html',
+  styleUrl: './region-publications-chart.component.css'
 })
-export class CountryPublicationsChartComponent {
-
+export class RegionPublicationsChartComponent {
   @Input() data: DataItem[] = [];
 
-  countryPublications: {country: string, publications: number}[] = [];
+  regionPublications: {region: string, publications: number}[] = [];
 
   private svg: any;
   private margin = 50;
@@ -22,22 +21,22 @@ export class CountryPublicationsChartComponent {
 
   ngOnInit(): void {
     
-    // prepare (country / publications) chart data
+    // prepare (region / publications) chart data
     this.data.forEach(item => {
-      const i = this.countryPublications.findIndex(e => e.country === item.country)
+      const i = this.regionPublications.findIndex(e => e.region === item.region)
       if (i > -1) {
-        this.countryPublications[i].publications++;
+        this.regionPublications[i].publications++;
       } else {
-        this.countryPublications.push({country: item.country, publications: 1});
+        this.regionPublications.push({region: item.region, publications: 1});
       }
     })
 
-    // replace empty country with unknown country name
-    const unKnownCountryIndex = this.countryPublications.findIndex(e => e.country == "");
-    this.countryPublications[unKnownCountryIndex].country = "unknown";
+    // replace empty region with unknown region name
+    const unKnownRegionIndex = this.regionPublications.findIndex(e => e.region == "");
+    this.regionPublications[unKnownRegionIndex].region = "unknown";
 
     this.createSvg();
-    this.drawBars(this.countryPublications);
+    this.drawBars(this.regionPublications);
   }
 
   private createSvg(): void {
@@ -52,14 +51,14 @@ export class CountryPublicationsChartComponent {
               .attr("x", this.width / 2 )
               .attr("y", 150 )
             .style("text-anchor", "middle")
-            .text("Country / Publications Chart");
+            .text("Region / Publications Chart");
 }
 
 private drawBars(data: any[]): void {
   // Create the X-axis band scale
   const x = d3.scaleBand()
               .range([0, this.width])
-              .domain(data.map(d => d.country))
+              .domain(data.map(d => d.region))
               .padding(0.2);
 
   // Draw the X-axis on the DOM
@@ -74,10 +73,10 @@ private drawBars(data: any[]): void {
             .attr("x", this.width / 2 )
             .attr("y", this.height + this.margin )
           .style("text-anchor", "middle")
-          .text("Country");
+          .text("Region");
 
   // Create the Y-axis band scale
-  const yMax = Math.max.apply(Math, this.countryPublications.map(function(e) { return e.publications; })) * 1.1
+  const yMax = Math.max.apply(Math, this.regionPublications.map(function(e) { return e.publications; })) * 1.1
 
   const y = d3.scaleLinear()
               .domain([0, yMax])
@@ -100,7 +99,7 @@ private drawBars(data: any[]): void {
           .data(data)
           .enter()
           .append("rect")
-            .attr("x", (d: any) => x(d.country))
+            .attr("x", (d: any) => x(d.region))
             .attr("y", (d: any) => y(d.publications))
             .attr("width", x.bandwidth())
             .attr("height", (d: any) => this.height - y(d.publications))

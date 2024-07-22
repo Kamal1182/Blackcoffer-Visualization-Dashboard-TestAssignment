@@ -34,8 +34,6 @@ export class SectorPublicationsChartComponent {
     const unKnownSectorIndex = this.sectorsPublications.findIndex(e => e.sector == "");
     this.sectorsPublications[unKnownSectorIndex].sector = "unknown";
 
-    console.log(this.sectorsPublications);
-    
     this.createSvg();
     this.drawBars(this.sectorsPublications);
   }
@@ -50,7 +48,7 @@ export class SectorPublicationsChartComponent {
     
     this.svg.append("text")      // text label for the chart
               .attr("x", this.width / 2 )
-              .attr("y", 0 )
+              .attr("y", 150 )
             .style("text-anchor", "middle")
             .text("Sector / Publications Chart");
 }

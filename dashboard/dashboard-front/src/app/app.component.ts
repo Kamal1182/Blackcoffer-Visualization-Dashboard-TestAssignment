@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ApiService } from '../app/shared/services/api/api.service';
 import { CountryPublicationsChartComponent } from './country-publications-chart/country-publications-chart.component';
+import { RegionPublicationsChartComponent } from './region-publications-chart/region-publications-chart.component';
 import { SectorPublicationsChartComponent } from './sector-publications-chart/sector-publications-chart.component';
 import { DataItem } from './shared/model/data.model';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, CountryPublicationsChartComponent, SectorPublicationsChartComponent],
+  imports: [CommonModule, RouterOutlet, CountryPublicationsChartComponent, SectorPublicationsChartComponent, RegionPublicationsChartComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
