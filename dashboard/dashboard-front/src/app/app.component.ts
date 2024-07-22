@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import * as d3 from 'd3';
 import { ApiService } from '../app/shared/services/api/api.service';
+import { CountryPublicationsChartComponent } from './country-publications-chart/country-publications-chart.component';
 import { DataItem } from './shared/model/data.model';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, CountryPublicationsChartComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -18,7 +19,7 @@ export class AppComponent {
 
   data: DataItem[] = [];
 
-  private countryPublications: {country: string, publications: number}[] = [];
+  @Input() countryPublications: {country: string, publications: number}[] = [];
 
   private svg: any;
   private margin = 50;
