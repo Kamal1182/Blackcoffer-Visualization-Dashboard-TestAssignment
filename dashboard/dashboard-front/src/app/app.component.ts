@@ -42,6 +42,8 @@ export class AppComponent {
                   }
                 }
               )
+              const unKnownCountryIndex = this.countryPublications.findIndex(e => e.country == "");
+              this.countryPublications[unKnownCountryIndex].country = "unknown";
               console.log(this.countryPublications);
 
               // prepare (country / sector) chart data
